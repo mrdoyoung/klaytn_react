@@ -14,8 +14,9 @@ const option = {
 const caver =  new Caver(new Caver.providers.HttpProvider("https://node-api.klaytnapi.com/v1/klaytn", option));
 const NFTMARKETContract = new caver.contract(NFTMarketABI, NFTMARKET_CONTRACT_ADDRESS);
 
-export const getTokenIdList = async () => {
+export const getTokenIdList = async (setTokeList) => {
   const _tokenList = await NFTMARKETContract.methods.getTokenIdList().call();
+  setTokeList('tokenlist : ' + _tokenList.join(", "));
   console.log(_tokenList);
 }
 

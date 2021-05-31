@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { createRef, useState } from "react";
 import logo from "./logo.svg";
 import QRCode from "qrcode.react";
 import { getTokenIdList , getBalance} from "./api/UseCaver";
@@ -9,15 +9,15 @@ const DEFAULT_QR_CODE = "DEFAULT";
 function App() {
   const [balance, setBalance] = useState("0");
   const [qrvalue, setQrvalue] = useState(DEFAULT_QR_CODE);
+  const [tokeList, settokeList] = useState("");
   
+  const divTokenListRef = createRef();
+
   const onChange = (value) => { 
     // 콜백 함수 정의 
   }
   const onClickGetTokenIdList = () => {
-    getTokenIdList();
-  };
-  const onClickGetAddress = () => {
-    getTokenIdList();
+    getTokenIdList(settokeList);
   };
   const onClickBuyNFT = () => {
     KlipAPI.buyNFT(100, setQrvalue);
@@ -25,6 +25,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+      <div>{tokeList}</div>
         <button
           onClick={() => {
             onClickGetTokenIdList();
